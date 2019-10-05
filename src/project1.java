@@ -27,7 +27,7 @@ public class project1 {
             JOptionPane.showMessageDialog(null,jlist,title,1);
             itemName =(String)jlist.getSelectedValue();
             quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of quantity."));
-            numItems = updateNumItem(itemList, itemName, quantity, numItems);
+            numItems = updateNumItem(itemList, itemName, quantity, numItems,priceList);
             decide = JOptionPane.showInputDialog(null, "Do you want to purchase more? Type yes otherwise no");
 
         }
@@ -35,7 +35,8 @@ public class project1 {
         price=calculate(day,price,priceList,numItems,finalPrices);
 
         price = (double) Math.round(price * 100) / 100;
-        JOptionPane.showMessageDialog(null, price);
+        JOptionPane.showMessageDialog(null, "The total cost are: "+price);
+        JOptionPane.showMessageDialog(null,"Thank you see you next time.");
 
     }
 
@@ -53,10 +54,11 @@ public class project1 {
         return null;
     }
 
-    public static int[] updateNumItem(String[] itemList, String itemName, int quantity, int[] numItem) {
+    public static int[] updateNumItem(String[] itemList, String itemName, int quantity, int[] numItem,double[]priceList) {
         for (int i = 0; i < itemList.length; i++) {
             if (itemName.equalsIgnoreCase(itemList[i])) {
                 numItem[i] += quantity;
+                JOptionPane.showMessageDialog(null,"Price per piece: "+priceList[i]);
             }
         }
         return (numItem);
@@ -70,7 +72,7 @@ public class project1 {
                 finalpricelist[j] = numItem[j] * priceList[j];
                 price+=finalpricelist[j];
             }
-            else if(numItem[j]>0 && day=="10Off" &&numItem[j]>=3)
+            else if(numItem[j]>0 && day=="10Off" && numItem[j]>=3)
             {
                 finalpricelist[j]=numItem[j]*priceList[j]*0.9;
                 price+=finalpricelist[j];
