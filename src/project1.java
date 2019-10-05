@@ -15,20 +15,17 @@ public class project1 {
         int[] numItems = {0, 0, 0, 0, 0, 0};
         double[] finalPrices = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         String decide = "yes";
+        String title="Please select an item";
         int quantity = 0;
         double price = 0;
-        JOptionPane.showMessageDialog(null, "Welcome to my grocery store. We have: ");
-
-
-        JOptionPane.showMessageDialog(null, new JList(itemList));
-
-
-        day = JOptionPane.showInputDialog("Price of an item may vary on different day, please enter today's day.");
-
+        JOptionPane.showMessageDialog(null, "Welcome to my grocery store.");
+        JList jlist=new JList(itemList);
+        day = JOptionPane.showInputDialog("Price of an item may vary on different days, please enter today's day.");
         day = determineDay(day);
 
         while (decide.equalsIgnoreCase("yes")) {
-            itemName = JOptionPane.showInputDialog(("Enter an item"));
+            JOptionPane.showMessageDialog(null,jlist,title,1);
+            itemName =(String)jlist.getSelectedValue();
             quantity = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of quantity."));
             numItems = updateNumItem(itemList, itemName, quantity, numItems);
             decide = JOptionPane.showInputDialog(null, "Do you want to purchase more? Type yes otherwise no");
@@ -60,7 +57,6 @@ public class project1 {
         for (int i = 0; i < itemList.length; i++) {
             if (itemName.equalsIgnoreCase(itemList[i])) {
                 numItem[i] += quantity;
-                System.out.println(numItem[i]);
             }
         }
         return (numItem);
