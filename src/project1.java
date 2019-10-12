@@ -18,6 +18,10 @@ public class project1 {
         String title="Please select an item";
         int quantity = 0;
         double price = 0;
+        int whole;
+        int decimal;
+        int price100;
+
         JOptionPane.showMessageDialog(null, "Welcome to my grocery store.");
         JList jlist=new JList(itemList);
         day = JOptionPane.showInputDialog("Price of an item may vary on different days, please enter today's day.");
@@ -34,8 +38,18 @@ public class project1 {
 
         price=calculate(day,price,priceList,numItems,finalPrices);
 
+
         price = (double) Math.round(price * 100) / 100;
-        JOptionPane.showMessageDialog(null, "The total cost are: "+price);
+
+       // String fprice=Double.toString(price);
+        //dot=fprice.indexOf(".");
+        //decimal=fprice.substring(dot+1);
+        //wholeNum=fprice.substring(0,dot);
+        //JOptionPane.showMessageDialog(null, "The total cost are: "+wholeNum+" dollars and "+decimal+" cents.");
+        whole=(int)(price);
+        decimal=(int)((price-whole)*100);
+
+        JOptionPane.showMessageDialog(null, "The total cost are: "+whole+" dollars and "+decimal+" cents.");
         JOptionPane.showMessageDialog(null,"Thank you see you next time.");
 
     }
@@ -59,6 +73,7 @@ public class project1 {
             if (itemName.equalsIgnoreCase(itemList[i])) {
                 numItem[i] += quantity;
                 JOptionPane.showMessageDialog(null,"Price per piece: "+priceList[i]);
+
             }
         }
         return (numItem);
@@ -71,16 +86,19 @@ public class project1 {
 
                 finalpricelist[j] = numItem[j] * priceList[j];
                 price+=finalpricelist[j];
+
             }
             else if(numItem[j]>0 && day=="10Off" && numItem[j]>=3)
             {
                 finalpricelist[j]=numItem[j]*priceList[j]*0.9;
                 price+=finalpricelist[j];
+
             }
             else if(numItem[j]>0 && day=="weekend" && numItem[j]>=3)
             {
                 finalpricelist[j]=(numItem[j]-numItem[j]/3)*priceList[j];
                 price+=finalpricelist[j];
+
             }
 
         }
