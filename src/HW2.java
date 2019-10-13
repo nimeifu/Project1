@@ -5,15 +5,27 @@ import java.util.Scanner;
 public class HW2 {
     public static void main(String[] args) {
 
-        String secretword = "test";
-        String stop = "stop";
-        Scanner scan = new Scanner(System.in);
-        String input = scan.next();
-        //System.out.println("Enter a phrase with more than ");
-        int indexOfFirst = firstWordIndex(input, secretword);
-        System.out.println(findStr(input,stop));
+        Scanner scan=new Scanner(System.in);
+        String secretWord="test";
+        String stop="stop";
+        System.out.println("Please enter a phrase that has more than "+StringLength(secretWord)+ " characters. You may type stop to end the program.");
+        String lowerCase=toAllLower(scan.nextLine());
 
 
+        while(!findStr(lowerCase,stop))
+        {
+            if(findStr(lowerCase,secretWord))
+            {
+                System.out.println("You found the secret word: "+ secretWord +"!");
+                System.out.println("You may continue or type stop to end this program.");
+                lowerCase=toAllLower(scan.nextLine());
+            }
+            else
+            {
+                System.out.println("Please try again.");
+                lowerCase=toAllLower(scan.nextLine());
+            }
+        }
     }
 
     public static boolean findStr(String input,String key) {
@@ -23,6 +35,10 @@ public class HW2 {
         }
         for (int i = 0; i < StringLength(input) - StringLength(key)+1; i++) {
             boolean innerflag = true;
+            if(input.charAt(i)==' ')
+            {
+                i++;
+            }
             for (int j = 0; j < StringLength(key); j++) {
                 if (key.charAt(j) != input.charAt(i + j)) {
                     innerflag = false;
@@ -38,7 +54,6 @@ public class HW2 {
     }
 
 
-
     public static int StringLength(String str) {
         int i = 0;
         try {
@@ -52,15 +67,24 @@ public class HW2 {
         return -1;
     }
 
-    public static int firstWordIndex(String input, String secretword) {
-        for (int j = 0; j < StringLength(input); j++) {
-
-            if (input.charAt(j) == secretword.charAt(0)) {
-                return j;
+    public static String toAllLower (String input)
+    {
+        String allLower="";
+        int charvalue;
+        for(int i =0;i<StringLength(input);i++)
+        {
+            char c=input.charAt(i);
+            charvalue=c;
+            if(c>32 &&c<91)
+            {
+                charvalue+=32;
+                c=(char)charvalue;
             }
+            allLower+=c;
         }
-        return -1;
+        return allLower;
     }
+
 
 
 }
